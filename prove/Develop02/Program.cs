@@ -4,6 +4,8 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop02 World!");
+      // initializing the menu
+        Journal journal = new Journal();
+        journal.Menu();
     }
 }

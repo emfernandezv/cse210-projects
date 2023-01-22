@@ -3,8 +3,7 @@ public class Journal {
 
     public string _menuOption;
     public List<string> _answers = new List<string>();
-    public List<string> _questions = new List<string>();
-
+    
     public void Menu(){
 
         Console.WriteLine("MAIN MENU");
@@ -47,14 +46,10 @@ public class Journal {
     }
 
     public void WriteEntry(){
-       
-        // Loading the questions
-        FileHandler objectHandler = new FileHandler ();
-        objectHandler.ReadQuestionaryFile();
-        _questions = objectHandler._list;
+        
         // Generating random prompt
         Writer questionObject = new Writer();
-        questionObject.PromptGenerator(_questions);
+        questionObject.PromptGenerator();
         string _question = questionObject._question;
 
         // getting response
@@ -64,7 +59,7 @@ public class Journal {
         DateTime _theCurrentTime = DateTime.Now;
         string _dateText = _theCurrentTime.ToShortDateString();
 
-        // Getting response
+        // writting the entry on the List, already formatted
         _answers.Add($"{_dateText};{_question};{_answer}");
 
         // Confirmation message
@@ -91,7 +86,6 @@ public class Journal {
         // Confirmation message
         Console.WriteLine("You information has been loaded");
         Console.WriteLine();
-
      }
 
     public void SaveFiles(){
@@ -101,6 +95,10 @@ public class Journal {
 
         //Saving answers
         objectHandler.SaveFile("What's the file's name to save?");
+
+        // Confirmation message
+        Console.WriteLine("You file has been saved");
+        Console.WriteLine();
     }
 
     public void Exit(){

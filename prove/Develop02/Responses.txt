@@ -1,0 +1,4 @@
+1/21/2023;What are your goals for today?;FINISH ALL MY ASSIGNMENTS|
+1/21/2023;How are you feeling today?;GOOD|
+1/21/2023;How are you feeling today?;BAD|
+1/21/2023;Is your day going on well?;GOOD|
