@@ -2,3 +2,4 @@
 1/21/2023;How are you feeling today?;GOOD|
 1/21/2023;How are you feeling today?;BAD|
 1/21/2023;Is your day going on well?;GOOD|
+1/23/2023;What did you have for breakfast?;nothing|

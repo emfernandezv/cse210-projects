@@ -3,7 +3,8 @@ public class Journal {
 
     public string _menuOption;
     public List<string> _answers = new List<string>();
-    
+    public List<string> _questions = new List<string>();
+
     public void Menu(){
 
         Console.WriteLine("MAIN MENU");
@@ -16,33 +17,6 @@ public class Journal {
 
         _menuOption = Console.ReadLine();
 
-        while( _menuOption != "1" && _menuOption != "2" && _menuOption != "3" && _menuOption != "4" && _menuOption != "5"){
-            Console.WriteLine("Please choose a valid option.");
-            Console.Write("What would you like to do?: ");
-            _menuOption = Console.ReadLine();
-        }
-
-        switch (_menuOption){
-            case "1":
-                WriteEntry();
-                Menu();
-                break;
-            case "2":
-                DisplayEntries();
-                Menu();
-                break;
-            case "3":
-                LoadFiles();
-                Menu();
-                break;
-            case "4":
-                SaveFiles();
-                Menu();    
-                break;                
-            default:
-                Exit();
-                break;
-        }
     }
 
     public void WriteEntry(){
@@ -97,7 +71,7 @@ public class Journal {
         objectHandler.SaveFile("What's the file's name to save?");
 
         // Confirmation message
-        Console.WriteLine("You file has been saved");
+        Console.WriteLine("You information has been loaded");
         Console.WriteLine();
     }
 
