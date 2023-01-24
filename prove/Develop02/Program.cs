@@ -28,7 +28,6 @@ class Program
                     break;
                 case "4":
                     journalUse.SaveFiles();
-
                     break;                
                 default:
                     journalUse.Exit();
