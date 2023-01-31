@@ -3,7 +3,7 @@ using System.IO;
 
 public class FileHandler {
 
-    string _fileName;
+    private string _fileName;
 
     public List<string> ReadQuestionaryFile(){
         List<string> list = new List<string> ();
