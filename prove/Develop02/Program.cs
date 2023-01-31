@@ -11,8 +11,7 @@ class Program
 
         // displaying the menu from the object
         displaymenu:
-        journalUse.Menu();
-        _menuOption = journalUse._menuOption;
+        _menuOption = Menu();
         //Validate option is correct
         while ( _menuOption == "1" || _menuOption == "2" || _menuOption == "3" || _menuOption == "4"|| _menuOption == "5"){
             //MENU HANDLER
@@ -33,12 +32,24 @@ class Program
                     journalUse.Exit();
                     break;
             }
-            journalUse.Menu();
-            _menuOption = journalUse._menuOption;
+            _menuOption = Menu();
         }
         // using goto to handle when the input is not a valid option
         Console.WriteLine("The option you entered is invalid.");
         goto displaymenu;
+
+        static string Menu(){
+            string menuOption;
+            Console.WriteLine("MAIN MENU");
+            Console.WriteLine("1. Write new entry");
+            Console.WriteLine("2. Display previous entries");
+            Console.WriteLine("3. Load files");
+            Console.WriteLine("4. Save answers");
+            Console.WriteLine("5. Quit");
+            Console.WriteLine("What would you like to do?: ");
+            menuOption = Console.ReadLine();
+            return menuOption;
+        }
 
     }
 }

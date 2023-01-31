@@ -1,40 +1,22 @@
 using System;
 public class Journal {
 
-    public string _menuOption;
-    public List<string> _answers = new List<string>();
-    public List<string> _questions = new List<string>();
-
-    public void Menu(){
-
-        Console.WriteLine("MAIN MENU");
-        Console.WriteLine("1. Write new entry");
-        Console.WriteLine("2. Display previous entries");
-        Console.WriteLine("3. Load files");
-        Console.WriteLine("4. Save answers");
-        Console.WriteLine("5. Quit");
-        Console.WriteLine("What would you like to do?: ");
-
-        _menuOption = Console.ReadLine();
-
-    }
-
+    public List<Entry> _entries = new List<Entry>();
+    
     public void WriteEntry(){
         
         // Generating random prompt
         Writer questionObject = new Writer();
-        questionObject.PromptGenerator();
-        string _question = questionObject._question;
-
+        string question = questionObject.PromptGenerator();
         // getting response
-        string _answer = Console.ReadLine();
-
+        string answer = Console.ReadLine();
         //Getting current date            
-        DateTime _theCurrentTime = DateTime.Now;
-        string _dateText = _theCurrentTime.ToShortDateString();
-
-        // writting the entry on the List, already formatted
-        _answers.Add($"{_dateText};{_question};{_answer}");
+        DateTime theCurrentTime = DateTime.Now;
+        string dateText = theCurrentTime.ToShortDateString();
+        // writting the entry on the List<Entry>, already formatted
+        Entry newEntry = new Entry();
+        newEntry._finalAnswer = $"{dateText};{question};{answer}";
+        _entries.Add(newEntry);
 
         // Confirmation message
         Console.WriteLine("The entry was recorded successfully!!");
@@ -44,19 +26,15 @@ public class Journal {
     public void DisplayEntries(){
         // initializing the object to handle the Responses TXT file
         Writer answerFileObject = new Writer();
-
         // reading the array
-        answerFileObject.WriteEntries(_answers);
+        answerFileObject.WriteEntries(_entries);
     }
 
     public void LoadFiles() {
         // Loading the questions
         FileHandler objectHandler = new FileHandler ();
-        objectHandler.ReadFile("What's the file's name to load?");
-
         //setting the read list to the local list
-        _answers = objectHandler._list;
-
+        _entries = objectHandler.ReadFile("What's the file's name to load?");
         // Confirmation message
         Console.WriteLine("You information has been loaded");
         Console.WriteLine();
@@ -65,11 +43,8 @@ public class Journal {
     public void SaveFiles(){
         //Setting list to save
         FileHandler objectHandler = new FileHandler ();
-        objectHandler._list = _answers;
-
         //Saving answers
-        objectHandler.SaveFile("What's the file's name to save?");
-
+        objectHandler.SaveFile("What's the file's name to save?",_entries);
         // Confirmation message
         Console.WriteLine("You information has been loaded");
         Console.WriteLine();

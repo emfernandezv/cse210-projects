@@ -1,6 +1,4 @@
-1/21/2023;What are your goals for today?;FINISH ALL MY ASSIGNMENTS|
-1/21/2023;How are you feeling today?;GOOD|
-1/21/2023;How are you feeling today?;BAD|
-1/21/2023;Is your day going on well?;GOOD|
-1/23/2023;What did you have for breakfast?;nothing|
-1/23/2023;If I had one thing I could do over today, what would it be?;I wanna finish my class|
+1/30/2023;What relevant thing happened today?;nothing
+1/30/2023;Have you accomplish all you had to do today?;yes
+1/30/2023;What relevant thing happened today?;nothing really
+1/30/2023;Have you accomplish all you had to do today?;yes
