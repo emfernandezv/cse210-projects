@@ -3,29 +3,27 @@ public class Scripture{
     private string _word;
     private string _reference;
     private List<Word> _listWord = new List<Word>();
-    private int _totalwords;
+    private int _totalWords;
     private int _totalHiddenWords;
+    private bool _isAllHidden;
     
-
     public Scripture(){
         // Constructor populates the scripture to use
-        getScripture();
+        GetScripture();
+        _isAllHidden = false;
     }
-
-    public void execute(){
-        hideScriptureWord();
-        dispWord();
+    public void Execute(){
+        WordHiding();
+        ScriptureDisplay();
     }
-
-    private void getScripture( ){
+    private void GetScripture( ){
         FileHandler objecthandler = new FileHandler();
         string scripture = objecthandler.ReadFile();
-        parseReference(scripture);
-        parseWord(scripture);
-        dispWord();
+        ParseReference(scripture);
+        ParseWord(scripture);
+        ScriptureDisplay();
     }
-
-    private void parseReference(string scripture){
+    private void ParseReference(string scripture){
         string[] array = scripture.Split("|");
         int index;
         
@@ -37,66 +35,62 @@ public class Scripture{
 
         if (book.Length > 2){
             // book names with a space like 1 Nephi
-            refe.setBookName($"{book[0]} {book[1]}");
+            refe.SetBookName($"{book[0]} {book[1]}");
             index = 2;
         }else{
-            refe.setBookName(book[0]);
+            refe.SetBookName(book[0]);
             index = 1;
         }
-
         // Dividing the chapter number vs the rest by the ":"
         string[] chapter = book[index].Split(":");
-        refe.setChapter(Int16.Parse(chapter[0]));
-
+        refe.SetChapter(Int16.Parse(chapter[0]));
         //Dividing verses using the "-"
         string[] verses = chapter[1].Split("-");
-        refe.setVerse(1, Int16.Parse(verses[0]));
+        refe.SetVerse(1, Int16.Parse(verses[0]));
         if (verses.Length > 1){
-            refe.setVerse(1, Int16.Parse(verses[1]));
+            refe.SetVerse(1, Int16.Parse(verses[1]));
         }
-
-        _reference = refe.getReference();
+        _reference = refe.GetReference();
     }
-
-    private void parseWord(string scripture){
+    private void ParseWord(string scripture){
         string[] array = scripture.Split("|");
-
         //Dividing each word using the blank space to separate each word
         string[] word = array[1].Split(" ");
         for (int i=0; i < word.Length ;i++){
             //PARSE WORD
             Word wording = new Word();
-            wording.setWord(word[i]);
+            wording.SetWord(word[i]);
             _listWord.Add(wording);
         }
-        _totalwords = _listWord.Count;
+        _totalWords = _listWord.Count;
     }
-
-    private void dispWord(){
+    private void ScriptureDisplay(){
         Console.Clear();
         List<string> listOfWords = new List<string>();
         foreach(Word word in _listWord){
-            listOfWords.Add(word.getWord());
+            listOfWords.Add(word.GetWord());
         }
         _word = string.Join(" ", listOfWords);
         Console.Clear();
-        Console.WriteLine($"{_reference}: '{_word}'");
+        Console.WriteLine($"{_reference}: {_word}");
     }
-
-    private void hideScriptureWord(){
-
-        Random random = new Random();
-        int randomIndex = random.Next(0, _totalwords);
-
-        if (_totalHiddenWords < _totalwords){
-            if ( _listWord[randomIndex].getIsHidden() == false){
-                _listWord[randomIndex].setIsHidden();
+    private void WordHiding(){
+        FileHandler objecthandler = new FileHandler();
+        int randomIndex = objecthandler.Randomizer(_totalWords);
+        if (_totalHiddenWords < _totalWords){
+            if ( _listWord[randomIndex].GetIsHidden() == false){
+                _listWord[randomIndex].SetIsHidden();
                 _totalHiddenWords++;
             }else{
-                hideScriptureWord();
+                WordHiding();
             }
         }else{
-            System.Environment.Exit(1);
+            _isAllHidden = true;
         }
     }
+
+    public bool getIsAllHidden(){
+        return _isAllHidden;
+    }
+
 }
