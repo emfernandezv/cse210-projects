@@ -10,9 +10,9 @@ class Program
         // displaying the menu from the object
         _menuOption = Menu();
         //Validate option is correct
-        while ( _menuOption != "quit" || script.getIsAllHidden() != true){
+        while ( _menuOption != "quit" && script.getIsAllHidden() != true){
             script.Execute();
-            Menu();
+            _menuOption = Menu();
         }
         //if the option was quit then exits
         ProgramTermination();
