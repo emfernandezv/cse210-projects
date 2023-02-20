@@ -32,21 +32,21 @@ public class ReflectionActivity : Activity{
             return _question2;
         }
     }
-     //OTHER BEHAVIORS
+     //TO DISPLAY THE FIRST PROMPT
     private void DisplayPrompt(){
         Console.WriteLine("Consider the following prompt:");
         Console.WriteLine($"--- {GetPrompt()} ---");
         Console.WriteLine("When you have something in mind, press enter to continue");
+        //TO READ THE ENTER KEY INPUT
         ConsoleKeyInfo keyInfo = Console.ReadKey();
         while(keyInfo.Key != ConsoleKey.Enter){
             keyInfo = Console.ReadKey();
         }
         Console.Clear();
     }
-
+    //TO DISPLAY THE QUESTIONS, SINCE ITS 2 QUESTIONS I HAVE A FOR TO LOOP TWICE
     private void DisplayQuestion(){
         Tools ini = new Tools();
-        
         for(int x = 1; x <= 2; x++){
             Console.WriteLine($"> {GetQuestions(x)}");
             Console.WriteLine();
@@ -55,7 +55,7 @@ public class ReflectionActivity : Activity{
             Console.WriteLine();
         }
     }
-
+    //COMPILER
     public void Execute(){
         //DISPLAY INITIAL MESSAGE
         DisplayInitialMessage(0);

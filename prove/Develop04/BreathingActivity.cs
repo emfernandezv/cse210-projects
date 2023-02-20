@@ -1,8 +1,6 @@
 public class BreathingActivity : Activity {
-
     private int _breathingIn;
     private int _breathingOut;
-
     //CONSTRUCTOR
     public BreathingActivity(int activity, string description) : base(activity, description)
     {   
@@ -39,7 +37,7 @@ public class BreathingActivity : Activity {
         }
         Console.CursorVisible = true;
     }
-
+    //COMPILER
     public void Execute(){
         // EXCEED EXPECTATION:
         LevelInput();
@@ -56,7 +54,7 @@ public class BreathingActivity : Activity {
         //display final message
         DisplayFinalMessage();
     }
-
+    //ADDITIONAL TO CONTROL THE LEVEL AND THE VALUES ARE SET DINAMICALLY
     public void LevelInput(){
         Console.Clear();
         int level;

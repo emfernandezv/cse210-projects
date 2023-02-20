@@ -4,13 +4,11 @@ public class Activity{
     private string _description;
     private int _duration;
     private string _endMessage;
-
     //CONSTRUCTOR
     public Activity(int activity, string description){
         SetActivity(activity);
         SetDescription(description);
     }
-
     //SETTERS
     private void SetActivity(int activity){
         _activity = activity;
@@ -25,7 +23,6 @@ public class Activity{
     private void SetMessage(string message){
         _endMessage = message;
     }
-
     //GETTERS
     private int GetActivity(){
         return _activity;
@@ -39,7 +36,7 @@ public class Activity{
     private string GetMessage(){
         return _endMessage;
     }
-
+    //TO CONTROL THE INITIAL MESSAGE THAT ALL ACTIVITIES HAS
     public void DisplayInitialMessage(int min){
         Console.Clear();
         int number = GetActivity()-1;
@@ -52,6 +49,7 @@ public class Activity{
         }   
         int duration = 0;    
         Console.WriteLine($"How long, in seconds, would you like for your session? Minimun {min} seconds.");
+        //TO VALIDATE A NUMERIC INPUT
         try{
             duration = Int32.Parse(Console.ReadLine());
         }catch (System.FormatException){
@@ -70,9 +68,8 @@ public class Activity{
         Console.WriteLine("Get ready...");
         Console.WriteLine();
         ini.Loader(2);
-        //Thread.Sleep(2000);
     }
-
+    //TO CONTROL THE FINAL MESSAGE THAT ALL ACTIVITIES HAS
     public void DisplayFinalMessage(){
         Console.WriteLine();
         Console.WriteLine(GetMessage());

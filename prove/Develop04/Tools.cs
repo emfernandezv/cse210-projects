@@ -7,8 +7,6 @@ public class Tools{
     private List<string> _reflectQuestions = new List<string>();
     private List<string> _listingPrompts = new List<string>();
     private List<string> _description = new List<string>();
-    private int _currentAnimationFrame;
-   
 
     public Tools(){
         //DESCRIPTIONS
@@ -41,6 +39,7 @@ public class Tools{
         _listingPrompts.Add("Who are some of your personal heroes?");
     }
 
+    //RANDOM SELECTOR
     public string Randomizer(int opc){
         Random rnd = new Random();
         List<string> listA = new List<string>();
@@ -60,64 +59,17 @@ public class Tools{
         return listA[index];
     }
 
+    
+    // TO DISPLAY THE DESCRIPTION
     public string description(int opc){
         return _description[opc];
     }
 
-    public void spinner(int repeat){
-        for(int e=0;e<= repeat;e++){
-            try {
-                char[] spinner = new char[] { '|', '/', '-', '\\' };
-
-                Console.WriteLine("");
-                bool oldCursorVisibility = Console.CursorVisible;
-                Console.CursorVisible = false;
-
-                int spinnerCount = 0;
-                int dotCount = 0;
-                int dotPause = 0;
-
-                // Account for scrolling behavior at bottom of screen
-                var fudge = (Console.BufferHeight - Console.CursorTop == 1) ? 0 : 1;
-                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - fudge);
-
-                for(int i=0;i<=8;i++)
-                {
-                    string spinnerText = string.Empty;
-                    spinnerText = spinnerText.PadRight(dotCount, '.');
-                    spinnerText = spinnerText.PadRight(4, ' ');
-                    spinnerText += spinner[spinnerCount];
-
-                    int x = Console.CursorLeft;
-                    int y = Console.CursorTop;
-
-                    Console.CursorLeft = (x - 5) >= 0 ? x - 5 : x;
-                    Console.Write(spinnerText);
-
-                    if (++spinnerCount > 3){
-                        spinnerCount = 0;
-                    }
-                    if (++dotPause == 2)
-                    {
-                        dotPause = 0;
-                        if (++dotCount == 4)
-                            dotCount = 0;
-                    }
-
-                    Thread.Sleep(100);
-                }
-
-                var left = Console.CursorLeft;
-                Console.CursorLeft = (left - 5) >= 0 ? left - 5 : left;
-                Console.CursorVisible = oldCursorVisibility;
-            } catch (Exception){
-                Console.WriteLine("done");                   
-            }   
-        } 
-    }
-
-    public void Loader(int time){
-        var timing = time * 50;
+    // I FOUND A NICE LOADER THAT I HAVE MODIFIED TO LOAD ACCORDING TO THE SECONDS ARGUMENT
+    public void Loader(int seconds){
+        //EACH REPETITION HAS 20, SO 1 SECOND = 50 *20 = 1000
+        //HAVING THIS MIND, I NEED TO MULTIPLY EACH SECOND BY 50
+        var timing = seconds * 50;
         using (var progress = new ProgressBar()) {
 			for (int i = 0; i <= timing; i++) {
 				progress.Report((double) i / timing);
@@ -141,7 +93,6 @@ public class ProgressBar : IDisposable, IProgress<double> {
 
 	public ProgressBar() {
 		timer = new Timer(TimerHandler);
-
 		// A progress bar is only for temporary display in a console window.
 		// If the console output is redirected to a file, draw nothing.
 		// Otherwise, we'll end up with a lot of garbage in the target file.
@@ -159,7 +110,6 @@ public class ProgressBar : IDisposable, IProgress<double> {
 	private void TimerHandler(object state) {
 		lock (timer) {
 			if (disposed) return;
-
 			int progressBlockCount = (int) (currentProgress * blockCount);
 			int percent = (int) (currentProgress * 100);
 			string text = string.Format("[{0}{1}] {2,3}% {3}",
@@ -167,7 +117,6 @@ public class ProgressBar : IDisposable, IProgress<double> {
 				percent,
 				animation[animationIndex++ % animation.Length]);
 			UpdateText(text);
-
 			ResetTimer();
 		}
 	}
@@ -179,21 +128,17 @@ public class ProgressBar : IDisposable, IProgress<double> {
 		while (commonPrefixLength < commonLength && text[commonPrefixLength] == currentText[commonPrefixLength]) {
 			commonPrefixLength++;
 		}
-
 		// Backtrack to the first differing character
 		StringBuilder outputBuilder = new StringBuilder();
 		outputBuilder.Append('\b', currentText.Length - commonPrefixLength);
-
 		// Output new suffix
 		outputBuilder.Append(text.Substring(commonPrefixLength));
-
 		// If the new text is shorter than the old one: delete overlapping characters
 		int overlapCount = currentText.Length - text.Length;
 		if (overlapCount > 0) {
 			outputBuilder.Append(' ', overlapCount);
 			outputBuilder.Append('\b', overlapCount);
 		}
-
 		Console.Write(outputBuilder);
 		currentText = text;
 	}
@@ -201,7 +146,6 @@ public class ProgressBar : IDisposable, IProgress<double> {
 	private void ResetTimer() {
 		timer.Change(animationInterval, TimeSpan.FromMilliseconds(-1));
 	}
-
 	public void Dispose() {
 		lock (timer) {
 			disposed = true;
