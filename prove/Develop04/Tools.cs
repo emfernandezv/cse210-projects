@@ -1,11 +1,13 @@
-public class ListInitializer{
+public class Tools{
 
     private List<string> _reflectPrompts = new List<string>();
     private List<string> _reflectQuestions = new List<string>();
     private List<string> _listingPrompts = new List<string>();
     private List<string> _description = new List<string>();
+    private int _currentAnimationFrame;
+   
 
-    public ListInitializer(){
+    public Tools(){
         //DESCRIPTIONS
         _description.Add("This activity will help you relax by walking your through breathing in and out slowly. Clear your mind and focus on your breathing.");
         _description.Add("This activity will help you reflect on times in your life when you have shown strength and resilience. This will help you recognize the power you have and how you can use it in other aspects of your life.");
@@ -34,6 +36,14 @@ public class ListInitializer{
         _listingPrompts.Add("Who are people that you have helped this week?");
         _listingPrompts.Add("When have you felt the Holy Ghost this month?");
         _listingPrompts.Add("Who are some of your personal heroes?");
+
+        SpinnerAnimationFrames = new[]
+                                     {
+                                         '|',
+                                         '/',
+                                         '-',
+                                         '\\'
+                                     };
     }
 
     public string Randomizer(int opc){
@@ -59,57 +69,57 @@ public class ListInitializer{
         return _description[opc];
     }
 
-    public void spinner()
-        {   
-            try
-            {
-                char[] spinner = new char[] { '|', '/', '-', '\\' };
-                bool oldCursorVisibility = Console.CursorVisible;
-                Console.CursorVisible = false;
+     public char[] SpinnerAnimationFrames { get; set; }
+    
+    public void spinner(int repeat){
+        for(int e=0;e<= repeat;e++){
+            try {
+                    char[] spinner = new char[] { '|', '/', '-', '\\' };
 
-                int spinnerCount = 0;
-                int dotCount = 0;
-                int dotPause = 0;
+                    Console.WriteLine("");
+                    bool oldCursorVisibility = Console.CursorVisible;
+                    Console.CursorVisible = false;
 
-                // Account for scrolling behavior at bottom of screen
-                var fudge = (Console.BufferHeight - Console.CursorTop == 1) ? 0 : 1;
-                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - fudge);
-                int duration = 8;
-                while (duration >= 0)
-                {
-                    string spinnerText = string.Empty;
-                    spinnerText = spinnerText.PadRight(dotCount, '.');
-                    spinnerText = spinnerText.PadRight(4, ' ');
-                    spinnerText += spinner[spinnerCount];
+                    int spinnerCount = 0;
+                    int dotCount = 0;
+                    int dotPause = 0;
 
-                    int x = Console.CursorLeft;
-                    int y = Console.CursorTop;
+                    // Account for scrolling behavior at bottom of screen
+                    var fudge = (Console.BufferHeight - Console.CursorTop == 1) ? 0 : 1;
+                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - fudge);
 
-                    Console.CursorLeft = (x - 5) >= 0 ? x - 5 : x;
-                    Console.Write(spinnerText);
-
-                    if (++spinnerCount > 3)
-                        spinnerCount = 0;
-
-                    if (++dotPause == 2)
+                    for(int i=0;i<=8;i++)
                     {
-                        dotPause = 0;
-                        if (++dotCount == 4)
-                            dotCount = 0;
+                        string spinnerText = string.Empty;
+                        spinnerText = spinnerText.PadRight(dotCount, '.');
+                        spinnerText = spinnerText.PadRight(4, ' ');
+                        spinnerText += spinner[spinnerCount];
+
+                        int x = Console.CursorLeft;
+                        int y = Console.CursorTop;
+
+                        Console.CursorLeft = (x - 5) >= 0 ? x - 5 : x;
+                        Console.Write(spinnerText);
+
+                        if (++spinnerCount > 3)
+                            spinnerCount = 0;
+
+                        if (++dotPause == 2)
+                        {
+                            dotPause = 0;
+                            if (++dotCount == 4)
+                                dotCount = 0;
+                        }
+
+                        Thread.Sleep(100);
                     }
 
-                    Thread.Sleep(100);
-                    duration--;
-                }
-
-                var left = Console.CursorLeft;
-                Console.CursorLeft = (left - 5) >= 0 ? left - 5 : left;
-                Console.CursorVisible = oldCursorVisibility;
-                Console.WriteLine();
-            }
-            catch (Exception)
-            {
-                Console.WriteLine();                   
-            }
-        }
+                    var left = Console.CursorLeft;
+                    Console.CursorLeft = (left - 5) >= 0 ? left - 5 : left;
+                    Console.CursorVisible = oldCursorVisibility;
+            } catch (Exception){
+                Console.WriteLine("");                   
+            }   
+        } 
+    }
 }

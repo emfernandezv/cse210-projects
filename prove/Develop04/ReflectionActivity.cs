@@ -5,7 +5,7 @@ public class ReflectionActivity : Activity{
     private string _question2;
     //CONSTRUCTOR    
     public ReflectionActivity(string activity, string description, int duration) : base(activity, description, duration){
-        ListInitializer ini = new ListInitializer();
+        Tools ini = new Tools();
         setPrompt(ini.Randomizer(1));
         setQuestions(1,ini.Randomizer(2));
         setQuestions(2,ini.Randomizer(2));
@@ -46,15 +46,15 @@ public class ReflectionActivity : Activity{
     }
 
     public void displayQuestion(){
-        ListInitializer ini = new ListInitializer();
+        Tools ini = new Tools();
         for(int x = 1; x <= 2; x++){
             Console.WriteLine($"> {getQuestions(x)}");
             Console.WriteLine();
             int i = getDuration()/2;
-            while(i >= 0){
-                ini.spinner();
-                i--;
-            }
+            //while(i >= 0){
+                ini.spinner(i);
+              //  i--;
+            //}
             Console.WriteLine();
         }
         Console.WriteLine(getMessage());

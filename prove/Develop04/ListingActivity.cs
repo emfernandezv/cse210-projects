@@ -2,7 +2,7 @@ public class ListingActivity : Activity
 {   private string _prompt;
     private List<string> _activities = new List<string>();
     public ListingActivity(string activity, string description, int duration) : base(activity, description, duration)
-    {   ListInitializer ini = new ListInitializer();
+    {   Tools ini = new Tools();
         setPrompt(ini.Randomizer(3));
     }
     //SETTERS

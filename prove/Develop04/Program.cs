@@ -3,10 +3,10 @@ using System;
 class Program
 {
     static void Main(string[] args)
-    {   
+    {   validate:
         int _menuOption =  Menu();
         //Validate option is correct
-        while ( _menuOption <= 4){
+        while ( _menuOption <= 4 && _menuOption > 0){
             switch (_menuOption){
                 case 1:
                     StartBreathingActivity();
@@ -23,6 +23,7 @@ class Program
             }
             _menuOption = Menu();
         }
+        goto validate;
 
         static int Menu(){
             int menuOption;
@@ -31,9 +32,14 @@ class Program
             Console.WriteLine("2. Start reflecting activity.");
             Console.WriteLine("3. Start listing activity.");
             Console.WriteLine("4. Quit");
-            menuOption = Int32.Parse(Console.ReadLine());
+            try{
+                menuOption = Int32.Parse(Console.ReadLine());
+            }catch (System.FormatException e){
+                menuOption = 0;
+            }
             return menuOption;
         }
+        
 
         static void StartBreathingActivity(){
             int duration = displayInitialMessage(0);
@@ -55,19 +61,27 @@ class Program
         }
 
         static int displayInitialMessage(int number){
-            ListInitializer ini = new ListInitializer();
+            Tools ini = new Tools();
             Console.WriteLine(ini.description(number));
             Console.WriteLine();
             int min = 0;
             if (number == 0){
                 min = 10;
             }   
-                
+            int duration = 0;    
             Console.WriteLine($"How long, in seconds, would you like for your session? Minimun {min} seconds.");
-            int duration = Int32.Parse(Console.ReadLine());
+            try{
+                duration = Int32.Parse(Console.ReadLine());
+            }catch (System.FormatException e){
+                duration = 0;
+            }               
             while (duration < min){
                 Console.WriteLine($"Please chose a values > {min}.");
-                duration = Int32.Parse(Console.ReadLine());
+                try{
+                    duration = Int32.Parse(Console.ReadLine());
+                }catch (System.FormatException e){
+                    duration = 0;
+                } 
             }
             return duration;
         }
