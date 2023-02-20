@@ -34,7 +34,7 @@ class Program
             Console.WriteLine("4. Quit");
             try{
                 menuOption = Int32.Parse(Console.ReadLine());
-            }catch (System.FormatException e){
+            }catch (System.FormatException){
                 menuOption = 0;
             }
             return menuOption;
@@ -72,14 +72,14 @@ class Program
             Console.WriteLine($"How long, in seconds, would you like for your session? Minimun {min} seconds.");
             try{
                 duration = Int32.Parse(Console.ReadLine());
-            }catch (System.FormatException e){
+            }catch (System.FormatException){
                 duration = 0;
             }               
             while (duration < min){
                 Console.WriteLine($"Please chose a values > {min}.");
                 try{
                     duration = Int32.Parse(Console.ReadLine());
-                }catch (System.FormatException e){
+                }catch (System.FormatException){
                     duration = 0;
                 } 
             }
