@@ -4,17 +4,17 @@ public class ReflectionActivity : Activity{
     private string _question1;
     private string _question2;
     //CONSTRUCTOR    
-    public ReflectionActivity(string activity, string description, int duration) : base(activity, description, duration){
+    public ReflectionActivity(int activity, string description) : base(activity, description){
         Tools ini = new Tools();
-        setPrompt(ini.Randomizer(1));
-        setQuestions(1,ini.Randomizer(2));
-        setQuestions(2,ini.Randomizer(2));
+        SetPrompt(ini.Randomizer(1));
+        SetQuestions(1,ini.Randomizer(2));
+        SetQuestions(2,ini.Randomizer(2));
     }
     //SETTERS
-    public void setPrompt(string prompt){
+    private void SetPrompt(string prompt){
         _prompt = prompt;
     }
-    public void setQuestions(int number,string question){
+    private void SetQuestions(int number,string question){
         if (number == 1){
             _question1 = question;
         }else{
@@ -22,10 +22,10 @@ public class ReflectionActivity : Activity{
         }
     }
     //GETTERS
-    public string getPrompt(){
+    private string GetPrompt(){
         return _prompt;
     }
-    public string getQuestions(int number){
+    private string GetQuestions(int number){
         if (number == 1){
             return _question1;
         }else{
@@ -33,10 +33,9 @@ public class ReflectionActivity : Activity{
         }
     }
      //OTHER BEHAVIORS
-    public void displayPrompt(){
-        Console.WriteLine("Get ready...");
+    private void DisplayPrompt(){
         Console.WriteLine("Consider the following prompt:");
-        Console.WriteLine($"--- {getPrompt()} ---");
+        Console.WriteLine($"--- {GetPrompt()} ---");
         Console.WriteLine("When you have something in mind, press enter to continue");
         ConsoleKeyInfo keyInfo = Console.ReadKey();
         while(keyInfo.Key != ConsoleKey.Enter){
@@ -45,20 +44,27 @@ public class ReflectionActivity : Activity{
         Console.Clear();
     }
 
-    public void displayQuestion(){
+    private void DisplayQuestion(){
         Tools ini = new Tools();
         for(int x = 1; x <= 2; x++){
-            Console.WriteLine($"> {getQuestions(x)}");
+            Console.WriteLine($"> {GetQuestions(x)}");
             Console.WriteLine();
-            int i = getDuration()/2;
-            //while(i >= 0){
-                ini.spinner(i);
-              //  i--;
-            //}
+            int i = GetDuration()/2;
+            ini.spinner(i);
             Console.WriteLine();
         }
-        Console.WriteLine(getMessage());
-        Thread.Sleep(5000);
-        Console.Clear();
     }
+
+    public void Execute(){
+        //DISPLAY INITIAL MESSAGE
+        DisplayInitialMessage(0);
+        //DISPLAYING FIRST PROMPT
+        DisplayPrompt();
+        //DISPLAYING QUESTIONS
+        DisplayQuestion();
+        //displayFinalMessage FINAL MESSAGE
+        DisplayFinalMessage();
+    }
+
+
 }

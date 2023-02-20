@@ -4,56 +4,93 @@ public class BreathingActivity : Activity {
     private int _breathingOut;
 
     //CONSTRUCTOR
-    public BreathingActivity(string activity, string description, int duration) : base(activity, description, duration)
+    public BreathingActivity(int activity, string description) : base(activity, description)
     {   
-        setBreathIn(5);
-        setBreathOut(5);
+        SetBreathIn(5);
+        SetBreathOut(5);
     }
     //SETTERS
-    public void setBreathIn(int time){
+    private void SetBreathIn(int time){
         _breathingIn = time;
     }
-    public void setBreathOut(int time){
+    private void SetBreathOut(int time){
         _breathingOut = time;
     }
     //GETTERS
-    public int getBreathIn(){
+    private int GetBreathIn(){
         return _breathingIn;
     }
-    public int getBreathOut(){
+    private int GetBreathOut(){
         return _breathingOut;
     }
     //OTHER BEHAVIORS
-    public void displayInMessage(){
-        for (var i = getBreathIn(); i >= 0; i--){
+    private void DisplayMessage(string msg){
+        Console.CursorVisible = false;
+        int time;
+        if (msg == "in"){
+            time = GetBreathIn();
+        }else {
+            time = GetBreathOut();
+        }
+        for (var i = time; i >= 0; i--){
             Console.Write("\r");
-            Console.Write("Breath in... {0} {1}", i, i == 0 ? "\n" : "");
+            Console.Write($"Breath {msg}... "+"{0} {1}", i, i == 0 ? "\n" : "");
             Thread.Sleep(1000);
         }
-    }
-    public void displayOutMessage(){
-        for (var i = getBreathOut(); i >= 0; i--){
-            Console.Write("\r");
-            Console.Write("Breath out... {0} {1}", i, i == 0 ? "\n" : "");
-            Thread.Sleep(1000);
-        }
+        Console.CursorVisible = true;
     }
 
-    public void displayMessage(){
-        Console.WriteLine("Get ready...");
-        Console.WriteLine();
-        Thread.Sleep(2000);
-
+    public void Execute(){
+        // EXCEED EXPECTATION:
+        LevelInput();
+        //displaying initial message
+        DisplayInitialMessage(GetBreathIn() + GetBreathOut());
         //TO CALCULATE HOW MANY TIMES IT HAS TO REPEAT THE ACTION
-        int times = getDuration() / (getBreathIn() + getBreathOut());
-
+        int times = GetDuration() / (GetBreathIn() + GetBreathOut());
+        //execution of the prompt
         for(int i = 1; i <= times ; i++){
-            displayInMessage();
-            displayOutMessage();
+            DisplayMessage("in");
+            DisplayMessage("out");
             Console.WriteLine();   
         }
-        Console.WriteLine(getMessage());
-        Thread.Sleep(5000);
+        //display final message
+        DisplayFinalMessage();
+    }
+
+    public void LevelInput(){
+        Console.Clear();
+        int level;
+        Console.WriteLine("What level would you like to do?");
+        Console.WriteLine("1. Beginner (5/5)");
+        Console.WriteLine("2. Intermediate (3/8)");
+        Console.WriteLine("3. Advanced (4/10)");
+        try{
+            level = Int32.Parse(Console.ReadLine());
+        }catch (System.FormatException){
+            level = 0;
+        } 
+        while (level < 0  && level > 3){
+            Console.WriteLine("Please input a valid option.");
+            try{
+                level = Int32.Parse(Console.ReadLine());
+            }catch (System.FormatException){
+                level = 0;
+            } 
+        }
+        switch(level){
+            case 1:
+                SetBreathIn(5);
+                SetBreathOut(5);
+                break;
+            case 2:
+                SetBreathIn(3);
+                SetBreathOut(8);
+                break;
+            case 3:
+                SetBreathIn(4);
+                SetBreathOut(10);
+                break;
+        }
         Console.Clear();
     }
 }

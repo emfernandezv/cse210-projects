@@ -1,43 +1,82 @@
 public class Activity{
 
-    private string _activity;
+    private int _activity;
     private string _description;
     private int _duration;
     private string _endMessage;
 
     //CONSTRUCTOR
-    public Activity(string activity, string description, int duration){
-        setActivity(activity);
-        setDescription(description);
-        setDuration(duration);
-        setMessage($"Well done! {Environment.NewLine}{Environment.NewLine}You have completed another {duration} seconds of the {description}.");
+    public Activity(int activity, string description){
+        SetActivity(activity);
+        SetDescription(description);
     }
 
     //SETTERS
-    public void setActivity(string activity){
+    private void SetActivity(int activity){
         _activity = activity;
     }
-    public void setDescription(string description){
+    private void SetDescription(string description){
         _description = description;
     }
-    public void setDuration(int duration){
+    private void SetDuration(int duration){
+        SetMessage($"Well done! {Environment.NewLine}{Environment.NewLine}You have completed another {duration} seconds of the {GetDescription()}.");
         _duration = duration;
     }
-    public void setMessage(string message){
+    private void SetMessage(string message){
         _endMessage = message;
     }
 
     //GETTERS
-    public string getActivity(){
+    private int GetActivity(){
         return _activity;
     }
-    public string getDescription(){
+    private string GetDescription(){
         return _description;
     }
-    public int getDuration(){
+    public int GetDuration(){
         return _duration;
     }
-    public string getMessage(){
+    private string GetMessage(){
         return _endMessage;
     }
+
+    public void DisplayInitialMessage(int min){
+        Console.Clear();
+        int number = GetActivity()-1;
+        Tools ini = new Tools();
+        Console.WriteLine(ini.description(number));
+        Console.WriteLine();
+        
+        if (number != 0){
+            min = 0;
+        }   
+        int duration = 0;    
+        Console.WriteLine($"How long, in seconds, would you like for your session? Minimun {min} seconds.");
+        try{
+            duration = Int32.Parse(Console.ReadLine());
+        }catch (System.FormatException){
+            duration = 0;
+        }               
+        while (duration < min){
+            Console.WriteLine($"Please chose a values > {min}.");
+            try{
+                duration = Int32.Parse(Console.ReadLine());
+            }catch (System.FormatException){
+                duration = 0;
+            } 
+        }
+        SetDuration(duration);
+        Console.WriteLine();
+        Console.WriteLine("Get ready...");
+        Console.WriteLine();
+        Thread.Sleep(2000);
+    }
+
+    public void DisplayFinalMessage(){
+        Console.WriteLine();
+        Console.WriteLine(GetMessage());
+        Thread.Sleep(5000);
+        Console.Clear();
+    }
+
 }

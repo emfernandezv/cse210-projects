@@ -23,6 +23,9 @@ class Program
             }
             _menuOption = Menu();
         }
+        Console.WriteLine("You have entered an invalid input. Please try again.");
+        Thread.Sleep(2000);
+        Console.Clear();
         goto validate;
 
         static int Menu(){
@@ -39,51 +42,20 @@ class Program
             }
             return menuOption;
         }
-        
 
         static void StartBreathingActivity(){
-            int duration = displayInitialMessage(0);
-            BreathingActivity breath = new BreathingActivity("1","Breathing Activity", duration);
-            breath.displayMessage();
+            BreathingActivity breath = new BreathingActivity(1,"Breathing Activity");
+            breath.Execute();
         }
 
         static void StartReflectingActivity(){
-            int duration = displayInitialMessage(1);
-            ReflectionActivity reflection = new ReflectionActivity("2","Reflection Activity", duration);
-            reflection.displayPrompt();
-            reflection.displayQuestion();
+            ReflectionActivity reflection = new ReflectionActivity(2,"Reflection Activity");
+            reflection.Execute();
         }
 
         static void StartListingActivity(){
-            int duration = displayInitialMessage(2);
-            ListingActivity listing = new ListingActivity("3","Listing Activity", duration);
-            listing.displayPrompt();
-        }
-
-        static int displayInitialMessage(int number){
-            Tools ini = new Tools();
-            Console.WriteLine(ini.description(number));
-            Console.WriteLine();
-            int min = 0;
-            if (number == 0){
-                min = 10;
-            }   
-            int duration = 0;    
-            Console.WriteLine($"How long, in seconds, would you like for your session? Minimun {min} seconds.");
-            try{
-                duration = Int32.Parse(Console.ReadLine());
-            }catch (System.FormatException){
-                duration = 0;
-            }               
-            while (duration < min){
-                Console.WriteLine($"Please chose a values > {min}.");
-                try{
-                    duration = Int32.Parse(Console.ReadLine());
-                }catch (System.FormatException){
-                    duration = 0;
-                } 
-            }
-            return duration;
+            ListingActivity listing = new ListingActivity(3,"Listing Activity");
+            listing.Execute();
         }
 
         static void ProgramTermination(){

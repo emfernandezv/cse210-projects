@@ -1,30 +1,31 @@
 public class ListingActivity : Activity
 {   private string _prompt;
     private List<string> _activities = new List<string>();
-    public ListingActivity(string activity, string description, int duration) : base(activity, description, duration)
+    public ListingActivity(int activity, string description) : base(activity, description)
     {   Tools ini = new Tools();
-        setPrompt(ini.Randomizer(3));
+        SetPrompt(ini.Randomizer(3));
     }
     //SETTERS
-    public void setPrompt(string prompt){
+    private void SetPrompt(string prompt){
         _prompt = prompt;
     }
-    public void addActivity(string activity){
+    private void AddActivity(string activity){
         _activities.Add(activity);
     }
     //GETTERS
-    public string getPrompt(){
+    private string GetPrompt(){
         return _prompt;
     }
-    public string getActivity(int index){
+    private string GetActivity(int index){
         return _activities[index];
     }
 
-    public void displayPrompt(){
-        Console.WriteLine();
-        Console.WriteLine("Get ready...");
+    public void Execute(){
+        //DISPLAY INITIAL MESSAGE
+        DisplayInitialMessage(0);
+        //EXECUTING
         Console.WriteLine("List as many responses you can to the following prompt:");
-        Console.WriteLine($"--- {getPrompt()} ---");
+        Console.WriteLine($"--- {GetPrompt()} ---");
         Console.WriteLine();
         for (var i = 5; i >= 0; i--){
             Console.Write("\r");
@@ -33,19 +34,16 @@ public class ListingActivity : Activity
         }
 
         DateTime startTime = DateTime.Now;
-        DateTime futureTime = startTime.AddSeconds(getDuration());
+        DateTime futureTime = startTime.AddSeconds(GetDuration());
         DateTime currentTime = DateTime.Now;
         while(currentTime < futureTime){
             Console.Write("> ");
             string input = Console.ReadLine();
-            addActivity(input);
+            AddActivity(input);
             currentTime = DateTime.Now;
         }
         Console.WriteLine($"You listed {_activities.Count()} items!");
-        Console.WriteLine();
-        Console.WriteLine(getMessage());
-        Thread.Sleep(5000);
-        Console.Clear();
-
+        //display final message
+        DisplayFinalMessage();
     }
 }

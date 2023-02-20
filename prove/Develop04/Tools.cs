@@ -36,14 +36,6 @@ public class Tools{
         _listingPrompts.Add("Who are people that you have helped this week?");
         _listingPrompts.Add("When have you felt the Holy Ghost this month?");
         _listingPrompts.Add("Who are some of your personal heroes?");
-
-        SpinnerAnimationFrames = new[]
-                                     {
-                                         '|',
-                                         '/',
-                                         '-',
-                                         '\\'
-                                     };
     }
 
     public string Randomizer(int opc){
@@ -69,56 +61,54 @@ public class Tools{
         return _description[opc];
     }
 
-     public char[] SpinnerAnimationFrames { get; set; }
-    
     public void spinner(int repeat){
         for(int e=0;e<= repeat;e++){
             try {
-                    char[] spinner = new char[] { '|', '/', '-', '\\' };
+                char[] spinner = new char[] { '|', '/', '-', '\\' };
 
-                    Console.WriteLine("");
-                    bool oldCursorVisibility = Console.CursorVisible;
-                    Console.CursorVisible = false;
+                Console.WriteLine("");
+                bool oldCursorVisibility = Console.CursorVisible;
+                Console.CursorVisible = false;
 
-                    int spinnerCount = 0;
-                    int dotCount = 0;
-                    int dotPause = 0;
+                int spinnerCount = 0;
+                int dotCount = 0;
+                int dotPause = 0;
 
-                    // Account for scrolling behavior at bottom of screen
-                    var fudge = (Console.BufferHeight - Console.CursorTop == 1) ? 0 : 1;
-                    Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - fudge);
+                // Account for scrolling behavior at bottom of screen
+                var fudge = (Console.BufferHeight - Console.CursorTop == 1) ? 0 : 1;
+                Console.SetCursorPosition(Console.CursorLeft, Console.CursorTop - fudge);
 
-                    for(int i=0;i<=8;i++)
+                for(int i=0;i<=8;i++)
+                {
+                    string spinnerText = string.Empty;
+                    spinnerText = spinnerText.PadRight(dotCount, '.');
+                    spinnerText = spinnerText.PadRight(4, ' ');
+                    spinnerText += spinner[spinnerCount];
+
+                    int x = Console.CursorLeft;
+                    int y = Console.CursorTop;
+
+                    Console.CursorLeft = (x - 5) >= 0 ? x - 5 : x;
+                    Console.Write(spinnerText);
+
+                    if (++spinnerCount > 3){
+                        spinnerCount = 0;
+                    }
+                    if (++dotPause == 2)
                     {
-                        string spinnerText = string.Empty;
-                        spinnerText = spinnerText.PadRight(dotCount, '.');
-                        spinnerText = spinnerText.PadRight(4, ' ');
-                        spinnerText += spinner[spinnerCount];
-
-                        int x = Console.CursorLeft;
-                        int y = Console.CursorTop;
-
-                        Console.CursorLeft = (x - 5) >= 0 ? x - 5 : x;
-                        Console.Write(spinnerText);
-
-                        if (++spinnerCount > 3)
-                            spinnerCount = 0;
-
-                        if (++dotPause == 2)
-                        {
-                            dotPause = 0;
-                            if (++dotCount == 4)
-                                dotCount = 0;
-                        }
-
-                        Thread.Sleep(100);
+                        dotPause = 0;
+                        if (++dotCount == 4)
+                            dotCount = 0;
                     }
 
-                    var left = Console.CursorLeft;
-                    Console.CursorLeft = (left - 5) >= 0 ? left - 5 : left;
-                    Console.CursorVisible = oldCursorVisibility;
+                    Thread.Sleep(100);
+                }
+
+                var left = Console.CursorLeft;
+                Console.CursorLeft = (left - 5) >= 0 ? left - 5 : left;
+                Console.CursorVisible = oldCursorVisibility;
             } catch (Exception){
-                Console.WriteLine("");                   
+                Console.WriteLine("done");                   
             }   
         } 
     }
