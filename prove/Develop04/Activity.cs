@@ -69,13 +69,15 @@ public class Activity{
         Console.WriteLine();
         Console.WriteLine("Get ready...");
         Console.WriteLine();
-        Thread.Sleep(2000);
+        ini.Loader(2);
+        //Thread.Sleep(2000);
     }
 
     public void DisplayFinalMessage(){
         Console.WriteLine();
         Console.WriteLine(GetMessage());
-        Thread.Sleep(5000);
+        Tools ini = new Tools();
+        ini.Loader(5);
         Console.Clear();
     }
 

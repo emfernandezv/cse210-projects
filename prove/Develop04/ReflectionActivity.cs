@@ -46,11 +46,12 @@ public class ReflectionActivity : Activity{
 
     private void DisplayQuestion(){
         Tools ini = new Tools();
+        
         for(int x = 1; x <= 2; x++){
             Console.WriteLine($"> {GetQuestions(x)}");
             Console.WriteLine();
             int i = GetDuration()/2;
-            ini.spinner(i);
+            ini.Loader(i);
             Console.WriteLine();
         }
     }
