@@ -8,20 +8,20 @@ public class Goal{
 	public string GetName(){
 		return _name;
 	}
-	public string GetDescription(){
+	protected string GetDescription(){
 		return _description;
 	}
 	public int GetPoints(){
 		return _points;
 	}
     //setters
-	public void SetName(string name){
+	private void SetName(string name){
 		_name = name;
 	}
-	public void SetDescription(string description){
+	private void SetDescription(string description){
 		_description = description;
 	}
-	public void SetPoints(int points){
+	private void SetPoints(int points){
 		_points = points;
 	}
     //other behaviors

@@ -208,7 +208,7 @@ public class EternalQuest
 		}
 	}
 
-    public void WriteProgress(int progress, int total){
+    private void WriteProgress(int progress, int total){
         //draw empty progress bar
             Console.CursorLeft = 0;
             Console.Write("[");
@@ -239,7 +239,7 @@ public class EternalQuest
             Thread.Sleep(250);
     }
 
-    public static void ClearCurrentConsoleLine(){
+    public void ClearCurrentConsoleLine(){
         int currentLineCursor = Console.CursorTop;
         Console.SetCursorPosition(0, Console.CursorTop);
         Console.Write(new string(' ', Console.WindowWidth)); 
