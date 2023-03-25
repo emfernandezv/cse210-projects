@@ -2,8 +2,6 @@ using System;
 using System.Text;
 using System.Threading;
 public class Tools{
-
-    // I FOUND A NICE LOADER THAT I HAVE MODIFIED TO LOAD ACCORDING TO THE SECONDS ARGUMENT
     public void Loader(int seconds){
         //EACH REPETITION HAS 20, SO 1 SECOND = 50 *20 = 1000
         //HAVING THIS MIND, I NEED TO MULTIPLY EACH SECOND BY 50
@@ -31,16 +29,12 @@ public class ProgressBar : IDisposable, IProgress<double> {
 
 	public ProgressBar() {
 		timer = new Timer(TimerHandler);
-		// A progress bar is only for temporary display in a console window.
-		// If the console output is redirected to a file, draw nothing.
-		// Otherwise, we'll end up with a lot of garbage in the target file.
 		if (!Console.IsOutputRedirected) {
 			ResetTimer();
 		}
 	}
 
 	public void Report(double value) {
-		// Make sure value is in [0..1] range
 		value = Math.Max(0, Math.Min(1, value));
 		Interlocked.Exchange(ref currentProgress, value);
 	}

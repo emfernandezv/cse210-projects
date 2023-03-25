@@ -4,26 +4,26 @@ public abstract class Financial{
     protected DateTime _date;
 
     public Financial(string name, double amount, DateTime date){
-        setName(name);
-        setAmount(amount);
-        setDate(date);
+        SetName(name);
+        SetAmount(amount);
+        SetDate(date);
     }
-    public string getName(){
+    public string GetName(){
         return _name;
     }
-    public virtual double getAmount(){
+    public virtual double GetAmount(){
         return _amount;
     }
-    public string getDate(){
+    public string GetDate(){
         return _date.ToShortDateString();
     }
-    private void setName(string name){
+    protected void SetName(string name){
         _name = name;
     }
-    private void setAmount(double amount){
+    protected void SetAmount(double amount){
         _amount = amount;
     }
-    private void setDate(DateTime date){
+    protected void SetDate(DateTime date){
         _date = date;
     }
     public abstract override string ToString();

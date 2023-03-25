@@ -20,13 +20,13 @@ public class InputHandler{
     }
     public void SaveBudgetToFile(string filename){
         using (StreamWriter writer = new StreamWriter(filename)){
-            foreach (Financial transaction in _budget.transactions){
+            foreach (Financial transaction in _budget._transactions){
                 if (transaction is Income){
                     Income income = (Income)transaction;
-                    writer.WriteLine($"Income,{income.getName()},{income.getAmount()},{income.getDate()}");
+                    writer.WriteLine($"Income,{income.GetName()},{income.GetAmount()},{income.GetDate()}");
                 } else if (transaction is Expense){
                     Expense expense = (Expense)transaction;
-                    writer.WriteLine($"Expense,{expense.getName()},{expense.getAmount()},{expense.getDate()}");
+                    writer.WriteLine($"Expense,{expense.GetName()},{expense.GetAmount()},{expense.GetDate()}");
                 }
             }
         }

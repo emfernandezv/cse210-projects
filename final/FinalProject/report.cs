@@ -39,31 +39,36 @@ public class Report
         Console.WriteLine("-----------------------------");
         Console.WriteLine("------ DETAILED REPORT ------");
         Console.WriteLine("-----------------------------");
-        Console.WriteLine("---------- INCOME -----------");
-        int order = 0;
-        foreach (Financial transaction in _transactions){
-            if (transaction  is Income){
-                order += 1;
-                Console.WriteLine($"{order}. {transaction.getName().ToUpper()} | {transaction.getDate()} | {transaction.getAmount()}");
-            }
-        }
-        Console.WriteLine();
-        Console.WriteLine("Total income: " + _budget.GetTotal("income").ToString("C"));
-        Console.WriteLine("---------- OUTCOME ----------");
-        order = 0;
-        foreach (Financial transaction in _transactions){
-            if (transaction  is Expense){
-                order += 1;
-                Console.WriteLine($"{order}. {transaction.getName().ToUpper()} | {transaction.getDate()} | {transaction.getAmount()}");
-            }
-        }
-        Console.WriteLine();
-        Console.WriteLine("Total expenses: " + _budget.GetTotal("expense").ToString("C"));
+        displayDetail("income");
+        displayDetail("expense");
         Console.WriteLine("---------- BALANCE ----------");
         Console.WriteLine();
         Console.WriteLine("Net income: " + _budget.GetBalance().ToString("C"));
+        Console.WriteLine();
         Console.WriteLine("-----------------------------");
         Console.WriteLine("-----------------------------");
+        Console.WriteLine();
+    }
+
+    public void displayDetail(string type){
+        int order = 0;
+        Console.WriteLine($"---------- {type.ToUpper()} ----------");
+        Console.WriteLine();
+        foreach (Financial transaction in _transactions){
+            if (type == "income"){
+                if (transaction  is Income){
+                    order += 1;
+                    Console.WriteLine($"{order}. {transaction.GetName().ToUpper()} | {transaction.GetDate()} | {transaction.GetAmount()}");
+                }
+            }else{
+                 if (transaction  is Expense){
+                    order += 1;
+                    Console.WriteLine($"{order}. {transaction.GetName().ToUpper()} | {transaction.GetDate()} | {transaction.GetAmount()}");
+                }
+            }
+        }
+        Console.WriteLine();
+        Console.WriteLine($"Total {type}: " + _budget.GetTotal(type).ToString("C"));
         Console.WriteLine();
     }
     public void GenerateReport(){
