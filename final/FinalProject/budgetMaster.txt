@@ -1,2 +1,7 @@
 Income,paycheck,500,3/1/2023
-Expense,groceries,300,3/6/2023
+Expense,groceries,-300,3/6/2023
+Income,PAYCHECK 2,750,3/2/2023
+Income,paycheck,500,3/1/2023
+Expense,groceries,-300,3/6/2023
+Income,PAYCHECK,750,3/3/2023
+Expense,nails,-30,3/5/2023

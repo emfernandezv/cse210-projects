@@ -9,8 +9,9 @@ public class Menu{
 
     public void Start(){
         bool exit = false;
-
+        Tools progress = new Tools();
         while (!exit){
+            Console.Clear();
             Console.WriteLine("\n--- WELCOME TO THE BUDGET MASTER APP ---");
             Console.WriteLine("\n--- MAIN MENU ---");
             Console.WriteLine("1. Add income");
@@ -18,28 +19,31 @@ public class Menu{
             Console.WriteLine("3. Show report");
             Console.WriteLine("4. Load File");
             Console.WriteLine("5. Save File");
-            Console.WriteLine("6. User Administration");
-            Console.WriteLine("7. Exit");
-            Console.WriteLine("Select an option: ");
+            Console.WriteLine("6. Exit");
+            Console.Write("Select an option: ");
             int option = Convert.ToInt32(Console.ReadLine());
             switch (option){
                 case 1:
-                    _budget.AddTransaction(_inputHandler.CreateIncome());
+                    _budget.AddTransaction(_inputHandler.CreateTransaction("income"));
                     break;
                 case 2:
-                    _budget.AddTransaction(_inputHandler.CreateExpense());
+                    _budget.AddTransaction(_inputHandler.CreateTransaction("expense"));
                     break;
                 case 3:
                     Report report = new Report(_budget);
-                    report.GenerateReport();
+                    report.ReportMenu();
                     break;
                 case 4:
                     _budget = _inputHandler.LoadBudgetFromFile("budgetMaster.txt");
+                    Console.WriteLine("Loading file...");
+                    progress.Loader(3);
                     break;
                 case 5:
                     _inputHandler.SaveBudgetToFile("budgetMaster.txt");
+                    Console.WriteLine("Saving file...");
+                    progress.Loader(3);
                     break;
-                case 7:
+                case 6:
                     exit = true;
                     break;
                 default:

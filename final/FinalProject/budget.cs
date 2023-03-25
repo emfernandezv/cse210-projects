@@ -1,37 +1,32 @@
 public class Budget{
-    public List<Financial> _transactions;
+    public List<Financial> transactions;
     public Budget(){
-        _transactions = new List<Financial>();
+        transactions = new List<Financial>();
     }
-
     public void AddTransaction(Financial transaction){
-        _transactions.Add(transaction);
-    }
-
-    public double GetTotalIncome(){
-        double totalIncome = 0;
-        foreach (Financial transaction in _transactions){
-            if (transaction is Income){
-                totalIncome += transaction.getAmount();
+        transactions.Add(transaction);
+    }    
+    public double GetTotal(string type){
+        double totalValue = 0;
+        foreach (Financial transaction in transactions){
+            if(type == "income"){
+                if (transaction is Income){
+                    totalValue += transaction.getAmount();
+                }
+            }else{
+                if (transaction is Expense){
+                    totalValue += transaction.getAmount();
+                }
             }
         }
-        return totalIncome;
-    }
-    public double GetTotalExpenses(){
-        double totalExpenses = 0;
-        foreach (Financial transaction in _transactions){
-            if (transaction is Expense){
-                totalExpenses += transaction.getAmount();
-            }
-        }
-        return totalExpenses;
+        return totalValue;
     }
     public double GetBalance(){
-        double totalIncome = GetTotalIncome();
-        double totalExpenses = GetTotalExpenses();
-        return totalIncome - totalExpenses;
+        double totalIncome = GetTotal("income");
+        double totalExpenses = GetTotal("expense");
+        return totalIncome + totalExpenses;
     }
     public List<Financial> GetTransactions(){
-        return _transactions;
+        return transactions;
     }
 }

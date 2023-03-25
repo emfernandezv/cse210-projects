@@ -4,43 +4,29 @@ public class InputHandler{
     public InputHandler(Budget budget){
         _budget = budget;
     }
-    public Financial CreateIncome(){
-        Console.WriteLine("Creating a new income...");
-        Console.Write("Enter the name of the income: ");
+    public Financial CreateTransaction(string type){
+        Console.WriteLine($"Creating a new {type}...");
+        Console.Write($"Enter the name of the {type}: ");
         string name = Console.ReadLine();
-
-        Console.Write("Enter the amount of the income: ");
+        Console.Write($"Enter the amount of the {type}: ");
         double amount = double.Parse(Console.ReadLine());
-
-        Console.Write("Enter the date of the income (MM/DD/YYYY): ");
+        Console.Write($"Enter the date of the {type} (MM/DD/YYYY): ");
         DateTime date = DateTime.Parse(Console.ReadLine());
-
-        return new Income(name, amount, date);
+        if (type == "income"){
+            return new Income(name, amount, date);
+        }else{
+            return new Expense(name, amount, date);
+        }
     }
-
-    public Financial CreateExpense(){
-        Console.WriteLine("Creating a new expense...");
-        Console.Write("Enter the name of the expense: ");
-        string name = Console.ReadLine();
-
-        Console.Write("Enter the amount of the expense: ");
-        double amount = double.Parse(Console.ReadLine());
-
-        Console.Write("Enter the date of the expense (MM/DD/YYYY): ");
-        DateTime date = DateTime.Parse(Console.ReadLine());
-
-        return new Expense(name, amount, date);
-    }
-
     public void SaveBudgetToFile(string filename){
         using (StreamWriter writer = new StreamWriter(filename)){
-            foreach (Financial transaction in _budget._transactions){
+            foreach (Financial transaction in _budget.transactions){
                 if (transaction is Income){
                     Income income = (Income)transaction;
-                    writer.WriteLine($"Income,{income.getName()},{income.getAmount()},{income.getDate().ToShortDateString()}");
+                    writer.WriteLine($"Income,{income.getName()},{income.getAmount()},{income.getDate()}");
                 } else if (transaction is Expense){
                     Expense expense = (Expense)transaction;
-                    writer.WriteLine($"Expense,{expense.getName()},{expense.getAmount()},{expense.getDate().ToShortDateString()}");
+                    writer.WriteLine($"Expense,{expense.getName()},{expense.getAmount()},{expense.getDate()}");
                 }
             }
         }

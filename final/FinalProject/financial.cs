@@ -11,11 +11,11 @@ public abstract class Financial{
     public string getName(){
         return _name;
     }
-    public double getAmount(){
+    public virtual double getAmount(){
         return _amount;
     }
-    public DateTime getDate(){
-        return _date;
+    public string getDate(){
+        return _date.ToShortDateString();
     }
     private void setName(string name){
         _name = name;
@@ -27,4 +27,6 @@ public abstract class Financial{
         _date = date;
     }
     public abstract override string ToString();
+
+    
 }
